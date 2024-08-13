@@ -1,0 +1,13 @@
+---
+- name: Brick test
+  hosts: all
+  remote_user: root
+  tasks:
+    - name: User creation
+      ansible.builtin.shell: | 
+        useradd brickdev -p pass -m
+        echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config.d/updated.conf
+        echo "PermitRootLogin no" >> /etc/ssh/sshd_config.d/updated.conf
+        mkdir /home/brickdev/.ssh
+        echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOhJWOB8qmBeAN5SlF52/Ge5UQ32EUYu/JQoMMvO8WCT alvlasoff@alvlasoffhost" > /home/brickdev/.ssh/authorized_keys
+        

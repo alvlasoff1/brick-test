@@ -1,0 +1,8 @@
+services:
+  ubuntu:
+    image: ubuntu
+    container_name: host
+    entrypoint:
+      - sh
+      - -c
+      - while :; do :; done
