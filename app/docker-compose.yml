@@ -1,0 +1,50 @@
+services:
+  node-test-1:
+    build: .
+    environment:
+      AUTHOR: Alexander
+      UUID: 1
+    hostname: application-host
+    entrypoint: 
+      - node
+      - app.js
+    healthcheck:
+      test: ["CMD-SHELL", "curl --fail http://localhost:8000/hostname || exit 1"]
+      interval: 15s
+      start_period: 10s
+    # Для создания реплик можно было воспользоваться следующей конструкцией, что было бы удобнее и правильнее,
+    # однако поскольку условие задачи требует того, чтобы в переменной UUID был именно номер реплики, то необходимо 
+    # создавать соответствующее количество сервисов (также можно было бы использовать встроенную функцию docker-compose, 
+    # которая дает репликам разные hostname, но подобный подход требует изменения кода приложения для переопределения 
+    # переменных, к тому же в данном случае UUID был бы не обязательно числовым)
+    # deploy: 
+    #   endpoint_mode: vip
+    #   replicas: 3
+  
+  node-test-2:
+    build: .
+    environment:
+      AUTHOR: Alexander
+      UUID: 2
+    hostname: application-host
+    entrypoint: 
+      - node
+      - app.js
+    healthcheck:
+      test: ["CMD-SHELL", "curl --fail http://localhost:8000/hostname || exit 1"]
+      interval: 15s
+      start_period: 10s
+
+  node-test-3:
+    build: .
+    environment:
+      AUTHOR: Alexander
+      UUID: 3
+    hostname: application-host
+    entrypoint: 
+      - node
+      - app.js
+    healthcheck:
+      test: ["CMD-SHELL", "curl --fail http://localhost:8000/hostname || exit 1"]
+      interval: 15s
+      start_period: 10s
